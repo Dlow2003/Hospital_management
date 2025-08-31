@@ -1,0 +1,10 @@
+{
+    "name": "yourname/hospital_management",
+    "description": "Hospital Management System",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "require": {}
+}
