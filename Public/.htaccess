@@ -1,0 +1,8 @@
+Options -Indexes
+RewriteEngine On
+RewriteBase /Hospital_management/public/
+
+# Nếu request không trỏ tới file hoặc thư mục thì chuyển về index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
