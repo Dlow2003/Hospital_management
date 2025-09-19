@@ -24,7 +24,12 @@ class AuthController extends Controller {
         $user = $this->userModel->findByEmail($email);
 
         if ($user && password_verify($password, $user['password'])) {
-            $_SESSION['user'] = $user;
+             $_SESSION['user'] = [
+        'id'    => $user['id'],
+        'name'  => $user['name'],
+        'email' => $user['email'],
+        'role'  => $user['role'],  
+    ];
             header("Location: /Hospital_management/public/dashboard");
             exit;
         } else {

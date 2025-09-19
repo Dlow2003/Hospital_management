@@ -9,6 +9,10 @@ class Router {
     $this->routes = [
         ''                  => ['DashboardController', 'index'],
         'dashboard'         => ['DashboardController', 'index'],
+        'appointment/create' => ['AppointmentController', 'create'],
+'appointment/store'  => ['AppointmentController', 'store'],
+  '' => ['HomeController', 'index'],
+    'home/index' => ['HomeController', 'index'],
 
          // ✅ Auth routes
     'auth/login'        => ['AuthController', 'login'],

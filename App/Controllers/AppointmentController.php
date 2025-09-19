@@ -8,6 +8,14 @@ use App\Models\Doctor;
 
 class AppointmentController extends Controller {
     public function index() {
+         // 🔒 Kiểm tra quyền truy cập
+       if (!isset($_SESSION['user']) || !in_array($_SESSION['user']['role'], ['admin', 'doctor'])) {
+        $this->render("auth/no_permission", [
+            "message" => "⛔ Bạn không có quyền xem danh sách lịch hẹn!"
+        ]);
+        return;
+    }
+
         $appointmentModel = new Appointment();
         $appointments = $appointmentModel->getAllWithJoin();
         $this->render('appointments/index', ['appointments' => $appointments]);
@@ -31,6 +39,19 @@ class AppointmentController extends Controller {
             'doctors' => $doctors
         ]);
     }
+    public function store() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $appointmentModel = new Appointment();
+        $appointmentModel->create([
+            'patient_id'       => $_POST['patient_id'],
+            'doctor_id'        => $_POST['doctor_id'],
+            'appointment_date' => $_POST['appointment_date'],
+            'note'             => $_POST['note']
+        ]);
+        header("Location: /Hospital_management/public/index.php?url=appointment/index");
+        exit;
+    }
+}
 
     public function edit($id) {
         $appointmentModel = new Appointment();
